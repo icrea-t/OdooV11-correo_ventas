@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!--TREE VIEW-->
+        <record id="correo_electronico_tree" model="ir.ui.view">
+            <field name="name">correo.electronico.tree</field>
+            <field name="model">egas.correo.ventas</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="name"/>
+                    <field name="correo_electronico"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- FORM VIEW -->
+        <record id="correo_electronico_form" model="ir.ui.view">
+            <field name="name">correo.electronico.form</field>
+            <field name="model">egas.correo.ventas</field>
+            <field name="arch" type="xml">
+                <form string="Formulario Correo Electronico">
+                    <sheet>
+                        <group>
+                            <field name="name"/>
+                            <field name="correo_electronico"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ACTION -->
+        <record model="ir.actions.act_window" id="action_correo_electronico">
+            <field name="name">Lista de Correos Electronicos</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">egas.correo.ventas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--<menuitem id="menu_personas" name="Personas" sequence="3"/>-->
+        <menuitem id="sub_menu_correo_electronico" name="Correo Electronico" parent="sale.menu_sale_config"/>
+        <menuitem id="lista_correo_electronico" name="Lista Correos Electronicos" parent="sub_menu_correo_electronico" action="action_correo_electronico"/>
+
+    </data>
+</odoo>
