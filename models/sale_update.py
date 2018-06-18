@@ -46,71 +46,61 @@ egas_correo_ventas()
 class SaleOrderUpdate(models.Model):
     _inherit='sale.order'
 
-    def _action_confirm(self):
+    def _action_confirm(self): # self tiene los datos del objeto actual
+        #ejemplos de como acceder a la inf.:
+        #self.name, self.amount_total
+
         print('Esto sera para el correo.....')
 
-        # # create message object instance
-        # msg = MIMEMultipart()
+        #se busca el detalle del presupuesto y se trae toda la inf.
+        #de los objetos (para extraerlos utilizar un 'for')
+        filtro = [('order_id', '=', self.id)]
+        prueba = self.env['sale.order.line'].search(filtro)
+        print(prueba, 'solo con filtro')
+        for algo in prueba:
+            print(algo.name, algo.id, 'Extrayendo la inf. con el for')
+
+        #se busca el detalle del presupuesto, pero de campos especificos
+        #y los devuelve en un diccionario
+        super_filtro = ['name', 'price_unit', 'product_uom_qty']
+        con_super_filtro = self.env['sale.order.line'].search_read(filtro, super_filtro)
+        print(con_super_filtro, 'con super filtros')
+
+        # credenciales del correo que se usara para generar el correo
+        # user='gustavo.hernandez@smartqs.com'
+        # passw='Vicky186'
         #
-        # message = "Thank you"
+        # remitente="gustavo.hernandez@smartqs.com"
+        # destinatario="gustavo.hernandez@smartqs.com"
+        # asunto="SOY EL ASUNTO"
+        # mensaje="SOY EL MENSAJE Y YO SOY <b>NEGRITAS</b>"
         #
-        # # setup the parameters of the message
-        # password = "Vicky186"
-        # msg['From'] = "gustavo.hernandez@smartqs.com"
-        # msg['To'] = "gustavo.hernandez@smartqs.com"
-        # msg['Subject'] = "Subject,SOY EL ASUNTO"
+        # #host y puerto
+        # gmail= smtplib.SMTP('smtp.gmail.com: 587')
         #
-        # # add in the message body
-        # msg.attach(MIMEText(message, 'plain'))
+        # #protocolo utilizado por gmail
+        # gmail.starttls()
         #
-        # # create server
-        # server = smtplib.SMTP('smtp.gmail.com: 587')
+        # #credenciales
+        # gmail.login(user, passw)
         #
-        # server.starttls()
+        # # se crea la instancia del objeto del mensaje
+        # header= MIMEMultipart()
         #
-        # # Login Credentials for sending the mail
-        # server.login(msg['From'], password)
+        # # se crea la cabecera del correo
+        # header['Subject']=asunto
+        # header['From']=remitente
+        # header['To']=destinatario
         #
-        # # send the message via the server.
-        # server.sendmail(msg['From'], msg['To'], msg.as_string())
+        # # formato o tipo del mensaje, en este caso es HTML
+        # mensaje= MIMEText(mensaje, 'html') #Content-type:text/html
+        # header.attach(mensaje)
         #
-        # server.quit()
-
-
-        user='gustavo.hernandez@smartqs.com'
-        passw='Vicky186'
-
-        remitente="gustavo.hernandez@smartqs.com"
-        destinatario="gustavo.hernandez@smartqs.com"
-        asunto="SOY EL ASUNTO"
-        mensaje="SOY EL MENSAJE Y YO SOY <b>NEGRITAS</b>"
-
-        #host y puerto
-        gmail= smtplib.SMTP('smtp.gmail.com: 587')
-
-        #protocolo utilizado por gmail
-        gmail.starttls()
-
-        #credenciales
-        gmail.login(user, passw)
-
-        #depuracion, se le envia de parametro true que es 1
-        gmail.set_debuglevel(1)
-
-        header= MIMEMultipart()
-        header['Subject']=asunto
-        header['From']=remitente
-        header['To']=destinatario
-
-        mensaje= MIMEText(mensaje, 'plain') #Content-type:text/html
-        header.attach(mensaje)
-
-        #Enviar email
-        #gmail.sendmail(remitente, destinatario, header.as_string())
-        gmail.sendmail(remitente, destinatario, mensaje)
-
-        #Cerrar la conexion SMTP
-        gmail.quit()
+        # #Enviar email
+        # gmail.sendmail(header['From'], header['To'], header.as_string())
+        #
+        # #Cerrar la conexion SMTP
+        # gmail.quit()
 
         print('DEBERIA DE HABER ENVIADO EL CORREO')
 
