@@ -67,40 +67,40 @@ class SaleOrderUpdate(models.Model):
         print(con_super_filtro, 'con super filtros')
 
         # credenciales del correo que se usara para generar el correo
-        # user='gustavo.hernandez@smartqs.com'
-        # passw='Vicky186'
-        #
-        # remitente="gustavo.hernandez@smartqs.com"
-        # destinatario="gustavo.hernandez@smartqs.com"
-        # asunto="SOY EL ASUNTO"
-        # mensaje="SOY EL MENSAJE Y YO SOY <b>NEGRITAS</b>"
-        #
-        # #host y puerto
-        # gmail= smtplib.SMTP('smtp.gmail.com: 587')
-        #
-        # #protocolo utilizado por gmail
-        # gmail.starttls()
-        #
-        # #credenciales
-        # gmail.login(user, passw)
-        #
-        # # se crea la instancia del objeto del mensaje
-        # header= MIMEMultipart()
-        #
-        # # se crea la cabecera del correo
-        # header['Subject']=asunto
-        # header['From']=remitente
-        # header['To']=destinatario
-        #
-        # # formato o tipo del mensaje, en este caso es HTML
-        # mensaje= MIMEText(mensaje, 'html') #Content-type:text/html
-        # header.attach(mensaje)
-        #
-        # #Enviar email
-        # gmail.sendmail(header['From'], header['To'], header.as_string())
-        #
-        # #Cerrar la conexion SMTP
-        # gmail.quit()
+        user='gustavo.hernandez@smartqs.com'
+        passw='Vicky186'
+
+        remitente="gustavo.hernandez@smartqs.com"
+        destinatario="gustavo.hernandez@smartqs.com"
+        asunto="SOY EL ASUNTO"
+        mensaje="SOY EL MENSAJE Y YO SOY <b>NEGRITAS</b>"
+
+        #host y puerto
+        gmail= smtplib.SMTP('smtp.gmail.com: 587')
+
+        #protocolo utilizado por gmail
+        gmail.starttls()
+
+        #credenciales
+        gmail.login(user, passw)
+
+        # se crea la instancia del objeto del mensaje
+        header= MIMEMultipart()
+
+        # se crea la cabecera del correo
+        header['Subject']=asunto
+        header['From']=remitente
+        header['To']=destinatario
+
+        # formato o tipo del mensaje, en este caso es HTML
+        mensaje= MIMEText(mensaje, 'html') #Content-type:text/html
+        header.attach(mensaje)
+
+        #Enviar email
+        gmail.sendmail(header['From'], header['To'], header.as_string())
+
+        #Cerrar la conexion SMTP
+        gmail.quit()
 
         print('DEBERIA DE HABER ENVIADO EL CORREO')
 
